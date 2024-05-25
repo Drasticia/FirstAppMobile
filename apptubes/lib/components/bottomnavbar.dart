@@ -48,13 +48,27 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
         child: PageStorage(bucket: bucket, child: currentScreen),
       ),
       floatingActionButton: SizedBox(
-        width: 70,
-        height: 70,
+        width: 80,
+        height: 80,
         child: FloatingActionButton(
           backgroundColor: Colors.white,
-          child: const Icon(
-            Icons.track_changes,
-            color: Color.fromARGB(255, 188, 45, 34),
+          shape: CircleBorder(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.track_changes,
+                color: Color.fromARGB(255, 188, 45, 34),
+              ),
+              SizedBox(height: 1),
+              Text(
+                'Report',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 188, 45, 34),
+                  fontSize: 12,
+                ),
+              ),
+            ],
           ),
           onPressed: () {
             setState(() {

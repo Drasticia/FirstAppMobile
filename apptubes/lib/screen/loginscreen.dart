@@ -8,7 +8,8 @@ class loginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
+      resizeToAvoidBottomInset: false,
+      body: Stack(
       children: [
         Container(
           height: double.infinity,

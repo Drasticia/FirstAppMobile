@@ -65,6 +65,20 @@ class _MitigationPageState extends State<MitigationPage> {
       "name" : "LANDSLIDE",
       "image" : "lib/icons/landslide_land_rocks_stones_slope_icon_194275.png", 
     },
+    {
+      "id" : 6,
+      "tittle" : "Fire Mitigation Page",
+      "page" : FirePage(),
+      "name" : "FIRE",
+      "image" : "lib/icons/pngwing.com.png", 
+    },
+    {
+      "id" : 7,
+      "tittle" : "Typhoon Mitigation Page",
+      "page" : TyphoonPage(),
+      "name" : "TYPHOON",
+      "image" : "lib/icons/tornado_twister_weather_natural_phenomenon_wind_icon_194265.png", 
+    },
   ];
 
   List<Map<String, dynamic>> _foundItems = [];

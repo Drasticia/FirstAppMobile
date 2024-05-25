@@ -125,4 +125,54 @@ class LandslidePage extends StatelessWidget {
   }
 }
 
+class FirePage extends StatelessWidget {
+  const FirePage({Key? key}) : super(key : key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("lib/icons/pngwing.com.png"),
+            Text(
+              'Fire',
+              style: TextStyle(
+                fontSize: 60,
+                fontWeight: FontWeight.bold
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TyphoonPage extends StatelessWidget {
+  const TyphoonPage({Key? key}) : super(key : key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("lib/icons/tornado_twister_weather_natural_phenomenon_wind_icon_194265.png"),
+            Text(
+              'Typhoon',
+              style: TextStyle(
+                fontSize: 60,
+                fontWeight: FontWeight.bold
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
