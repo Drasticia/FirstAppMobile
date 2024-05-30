@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class ReportScreen extends StatelessWidget {
   const ReportScreen({super.key});
@@ -15,6 +16,26 @@ class ReportScreen extends StatelessWidget {
             fontWeight: FontWeight.bold,
             fontSize: 25,
           ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(color : Colors.grey),
+                borderRadius: BorderRadius.circular(15)
+              ),
+              padding: EdgeInsets.all(372),
+              child: Column(
+                children: [
+                  
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

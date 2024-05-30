@@ -72,7 +72,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
           ),
           onPressed: () {
             setState(() {
-              currentScreen = ReportScreen();
+              currentScreen = const ReportScreen();
               currentTab = 4;
             });
           },
@@ -86,7 +86,6 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
         elevation: 0,
         child: Container(
           height: 60,
-          color: Colors.transparent,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -125,7 +124,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = DisasterScreen();
+                        currentScreen = const DisasterScreen();
                         currentTab = 1;
                       });
                     },
@@ -158,7 +157,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = MitigationPage();
+                        currentScreen = const MitigationPage();
                         currentTab = 2;
                       });
                     },
@@ -186,7 +185,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = DisasterScreen();
+                        currentScreen = const DisasterScreen();
                         currentTab = 3;
                       });
                     },

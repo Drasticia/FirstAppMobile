@@ -185,51 +185,55 @@ class _MitigationPageState extends State<MitigationPage> {
                 key: ValueKey(_foundItems[index]["id"]),
                 color: Colors.white,
                 elevation: 4,
-                margin: const  EdgeInsets.symmetric(horizontal: 20, vertical: 7),
-                child: GestureDetector(
-                  onTap:() {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context){
-                          return Scaffold(
-                            appBar: AppBar(
-                              title: Text(
-                                _foundItems[index]['tittle'],
-                                style: TextStyle(color: Colors.white),
+                margin: const  EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                child: ElevatedButton(
+                  onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return Scaffold(
+                              appBar: AppBar(
+                                title: Text(
+                                  _foundItems[index]['tittle'],
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                backgroundColor: Colors.black,
                               ),
-                              backgroundColor: Colors.black,
-                            ),
-                            body: _foundItems[index]['page'],
+                              body: _foundItems[index]['page'],
                           );
                         }
                       )
                     );
                   },
-                  child: Container(
-                    child: ListTile(
-                      contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
-                      dense: true,
-                      leading: Container(
-                        height: 50,
-                        child: Image.asset(
-                          _foundItems[index]['image'],
-                        ),
-                      ),
-                      title: Row(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
                         children: [
-                          Expanded(
-                            child: Text(_foundItems[index]['name'], 
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                              ),
-                            ),
+                          Image.asset(
+                            _foundItems[index]['image'],
+                            height: 75,
                           ),
-                          Icon(Icons.arrow_circle_right_rounded, size: 50),
+                          SizedBox(width: 25),
+                          Text(
+                            _foundItems[index]['name'],
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              color: Colors.black
+                            ),
+                          )
                         ],
                       ),
-                    ),
+                      Icon(Icons.arrow_circle_right_rounded, size: 50, color: Colors.black,),
+                    ],
                   ),
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
                 ),
               ),
             )
