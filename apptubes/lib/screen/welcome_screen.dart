@@ -57,7 +57,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    _buildAppBarButton('Masuk', true),
+                    _buildAppBarButton('Lebet', true),
                     _buildAppBarButton('Daftar', false),
                   ],
                 ),
