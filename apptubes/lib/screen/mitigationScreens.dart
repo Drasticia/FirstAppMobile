@@ -117,7 +117,6 @@ class _MitigationPageState extends State<MitigationPage> {
             fontSize: 25,
           ),
         ),
-        
       ),
       body: Column(
         children: [

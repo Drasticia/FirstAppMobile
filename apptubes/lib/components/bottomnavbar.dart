@@ -21,7 +21,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
   int currentTab = 0;
   final List<Widget> pages = [
     HomeScreen(),
-    const DisasterScreen(),
+    DisasterScreen(),
     const ReportScreen(),
     const MitigationPage(),
   ];
@@ -72,7 +72,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
           ),
           onPressed: () {
             setState(() {
-              currentScreen = const ReportScreen();
+              currentScreen = ReportScreen();
               currentTab = 4;
             });
           },
@@ -86,6 +86,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
         elevation: 0,
         child: Container(
           height: 60,
+          color: Colors.transparent,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -104,17 +105,17 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.home,
+                          Icons.home_outlined,
                           color: currentTab == 0
                               ? const Color.fromARGB(255, 124, 9, 9)
-                              : Colors.white,
+                              : Colors.black,
                         ),
                         Text(
                           'Home',
                           style: TextStyle(
                             color: currentTab == 0
                                 ? const Color.fromARGB(255, 124, 9, 9)
-                                : Colors.white,
+                                : Colors.black,
                           ),
                         )
                       ],
@@ -124,7 +125,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const DisasterScreen();
+                        currentScreen = DisasterScreen();
                         currentTab = 1;
                       });
                     },
@@ -132,17 +133,17 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          Icons.event_note,
+                          Icons.location_on_outlined,
                           color: currentTab == 1
                               ? const Color.fromARGB(255, 124, 9, 9)
-                              : Colors.white,
+                              : Colors.black,
                         ),
                         Text(
                           'Disaster',
                           style: TextStyle(
                             color: currentTab == 1
                                 ? const Color.fromARGB(255, 124, 9, 9)
-                                : Colors.white,
+                                : Colors.black,
                           ),
                         )
                       ],
@@ -157,7 +158,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const MitigationPage();
+                        currentScreen = MitigationPage();
                         currentTab = 2;
                       });
                     },
@@ -168,14 +169,14 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                           Icons.import_contacts,
                           color: currentTab == 2
                               ? const Color.fromARGB(255, 124, 9, 9)
-                              : Colors.white,
+                              : Colors.black,
                         ),
                         Text(
                           'Mitigation',
                           style: TextStyle(
                             color: currentTab == 2
                                 ? const Color.fromARGB(255, 124, 9, 9)
-                                : Colors.white,
+                                : Colors.black,
                           ),
                         )
                       ],
@@ -185,7 +186,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const DisasterScreen();
+                        currentScreen = DisasterScreen();
                         currentTab = 3;
                       });
                     },
@@ -196,14 +197,14 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                           Icons.more_vert,
                           color: currentTab == 3
                               ? const Color.fromARGB(255, 124, 9, 9)
-                              : Colors.white,
+                              : Colors.black,
                         ),
                         Text(
                           'More',
                           style: TextStyle(
                             color: currentTab == 3
                                 ? const Color.fromARGB(255, 124, 9, 9)
-                                : Colors.white,
+                                : Colors.black,
                           ),
                         )
                       ],

@@ -89,11 +89,15 @@ class loginScreen extends StatelessWidget {
                               ]
                             ),
                           ),
-                          child: const Center(child: Text('SIGN IN',style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white
-                          ),),),
+                          child: const Center(
+                            child: Text(
+                              'SIGN IN',style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.white
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 150,),
