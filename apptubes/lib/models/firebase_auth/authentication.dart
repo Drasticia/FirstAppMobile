@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 class FirebaseAuthService {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -8,7 +9,7 @@ class FirebaseAuthService {
       UserCredential credential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
       return credential.user;
     } catch (e){
-      print("Akun salah");
+      print("Akun sudah pernah didaftarkan.");
     }
     return null;
   }
@@ -18,7 +19,7 @@ class FirebaseAuthService {
       UserCredential credential = await _auth.signInWithEmailAndPassword(email: email, password: password);
       return credential.user;
     } catch (e){
-      print("Akun salah");
+      print(e);
     }
     return null;
   }

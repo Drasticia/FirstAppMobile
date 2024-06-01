@@ -1,4 +1,5 @@
 import 'package:apptubes/models/firebase_auth/authentication.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
@@ -130,9 +131,36 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
     if (user != null){
       print("Akun berhasil diverifikasi");
+      final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Success!',
+          message:
+          'Account has been authorized!',
+          contentType: ContentType.success,
+        ),
+      );
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavBar2()));
     } else {
-      print("Terjadi error");
+      final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Error!',
+          message:
+          'Wrong email or password!',
+          contentType: ContentType.failure,
+        ),
+      );
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
     }
   }
 
