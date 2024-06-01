@@ -4,148 +4,159 @@ import 'register_screen.dart';
 import '../components/custom_button.dart';
 
 class WelcomeScreenNew extends StatefulWidget {
+  const WelcomeScreenNew({Key? key}) : super(key: key);
+
   @override
   _WelcomeScreenNewState createState() => _WelcomeScreenNewState();
 }
 
 class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
-  final PageController _pageController = PageController();
+  bool isLoginPage = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.red[700],
+        toolbarHeight: 5,
+        automaticallyImplyLeading: false,
+      ),
+      body: Stack(
         children: [
-          Container(
-            height: 60,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () => _pageController.animateToPage(0,
-                      duration: Duration(milliseconds: 300), curve: Curves.easeInOut),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: _pageController.hasClients && _pageController.page == 0
-                          ? Theme.of(context).primaryColor
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      'Masuk',
-                      style: TextStyle(
-                        color: _pageController.hasClients && _pageController.page == 0
-                            ? Colors.white
-                            : Theme.of(context).primaryColor,
-                      ),
-                    ),
+          Column(
+            children: [
+              SizedBox(height: 10, width: 100),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                margin: EdgeInsets.all(15),
+                width: 400,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      Theme.of(context).primaryColor,
+                      Theme.of(context).hintColor
+                    ],
                   ),
                 ),
-                SizedBox(width: 20),
-                GestureDetector(
-                  onTap: () => _pageController.animateToPage(1,
-                      duration: Duration(milliseconds: 300), curve: Curves.easeInOut),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: _pageController.hasClients && _pageController.page == 1
-                          ? Theme.of(context).primaryColor
-                          : Colors.transparent,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      'Daftar',
-                      style: TextStyle(
-                        color: _pageController.hasClients && _pageController.page == 1
-                            ? Colors.white
-                            : Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    _buildAppBarButton('Masuk', true),
+                    _buildAppBarButton('Daftar', false),
+                  ],
                 ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: PageView(
-              controller: _pageController,
-              children: [
-                _buildLoginChoice(context),
-                _buildRegisterChoice(context),
-              ],
-            ),
+              ),
+              Expanded(
+                child: AnimatedSwitcher(
+                  duration: Duration(milliseconds: 500),
+                  child: isLoginPage ? _buildLoginChoice(context) : _buildRegisterChoice(context),
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 
-  Widget _buildLoginChoice(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset('assets/icons/logo.png', height: 100),
-        SizedBox(height: 20),
-        Text(
-          'Login Sebagai',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).primaryColor,
+  Widget _buildAppBarButton(String title, bool isLoginButton) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            isLoginPage = isLoginButton;
+          });
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(vertical: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: isLoginPage == isLoginButton ? Colors.white : Colors.transparent,
+          ),
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: isLoginPage == isLoginButton ? Theme.of(context).primaryColor : Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-        SizedBox(height: 20),
-        CustomButton(
-          text: 'Pemangku Kebijakan',
-          onPressed: () {
-            // Navigate to the appropriate login screen for policymakers
-          },
-        ),
-        CustomButton(
-          text: 'Masyarakat Umum',
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
-            );
-          },
-        ),
-      ],
+      ),
+    );
+  }
+
+  Widget _buildLoginChoice(BuildContext context) {
+    return Padding(
+      key: ValueKey(1),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset('assets/icons/logo.png', height: 100),
+          SizedBox(height: 10),
+          Text(
+            'Masuk Sebagai',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 10),
+          CustomButton(
+            text: 'Masyarakat Umum',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              );
+            },
+          ),
+          SizedBox(height: 10),
+          CustomButton(
+            text: 'Pemangku Kebijakan',
+            onPressed: () {
+              // Navigate to the appropriate login screen for policymakers
+            },
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildRegisterChoice(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset('lib/icons/logo.png', height: 100),
-        SizedBox(height: 20),
-        Text(
-          'Daftar Sebagai',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).primaryColor,
+    return Padding(
+      key: ValueKey(2),
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset('assets/icons/logo.png', height: 100),
+          SizedBox(height: 10),
+          Text(
+            'Daftar Sebagai',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-        ),
-        SizedBox(height: 20),
-        CustomButton(
-          text: 'Pemangku Kebijakan',
-          onPressed: () {
-            // Navigate to the appropriate register screen for policymakers
-          },
-        ),
-        CustomButton(
-          text: 'Masyarakat Umum',
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => RegisterScreen()),
-            );
-          },
-        ),
-      ],
+          SizedBox(height: 10),
+          CustomButton(
+            text: 'Masyarakat Umum',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RegisterScreen()),
+              );
+            },
+          ),
+          SizedBox(height: 10),
+          CustomButton(
+            text: 'Pemangku Kebijakan',
+            onPressed: () {
+              // Navigate to the appropriate register screen for policymakers
+            },
+          ),
+        ],
+      ),
     );
   }
 }
