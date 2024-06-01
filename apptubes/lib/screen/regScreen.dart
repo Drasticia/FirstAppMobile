@@ -155,7 +155,7 @@ class _RegScreenState extends State<RegScreen> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    User? user = await _auth.signIn(email, password);
+    User? user = await _auth.signUp(email, password);
 
     if (user != null){
       print("Akun telah berhasil dibuat");
