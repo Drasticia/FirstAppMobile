@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "323745745127",
+    "project_id": "firendisasterapp-ecd06",
+    "storage_bucket": "firendisasterapp-ecd06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:323745745127:android:cc7227e85648994836fa42",
+        "android_client_info": {
+          "package_name": "com.example.apptubes"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBujeKK8AtDWu7FiGsLkgebTEUxEFnbdp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
