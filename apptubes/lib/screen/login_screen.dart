@@ -1,3 +1,5 @@
+import 'package:apptubes/models/firebase_auth/authentication.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import '../components/bottomnavbar.dart';
@@ -12,8 +14,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+
+  final FirebaseAuthService _auth = FirebaseAuthService();
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   final TapGestureRecognizer _tapRecognizer = TapGestureRecognizer();
@@ -37,19 +42,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   @override
   void dispose() {
     _controller.dispose();
-    emailController.dispose();
-    passwordController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     _tapRecognizer.dispose();
     super.dispose();
-  }
-
-  void _login() {
-    // Handle login logic here
-    print('Email: ${emailController.text}, Password: ${passwordController.text}');
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => BottomNavBar2()),
-    );
   }
 
   @override
@@ -77,12 +73,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
               CustomTextField(
                 labelText: 'Email',
                 hintText: 'Masukkan email',
-                controller: emailController,
+                controller: _emailController,
               ),
               CustomTextField(
                 labelText: 'Password',
                 hintText: 'Masukkan password',
-                controller: passwordController,
+                controller: _passwordController,
                 obscureText: true,
               ),
               Align(
@@ -97,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
               SizedBox(height: 20),
               CustomButton(
                 text: 'Masuk',
-                onPressed: _login,
+                onPressed: _signIn,
               ),
               SizedBox(height: 20),
               RichText(
@@ -125,4 +121,19 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       ),
     );
   }
+
+  void _signIn() async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    User? user = await _auth.signIn(email, password);
+
+    if (user != null){
+      print("Akun berhasil diverifikasi");
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => BottomNavBar2()));
+    } else {
+      print("Terjadi error");
+    }
+  }
+
 }

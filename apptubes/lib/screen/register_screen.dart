@@ -1,8 +1,11 @@
+import 'package:apptubes/screen/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import '../components/custom_text_field.dart';
 import '../components/custom_button.dart';
 import '../components/custom_dropdown.dart';
+import '../models/firebase_auth/authentication.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -10,25 +13,23 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController postalCodeController = TextEditingController();
+
+  final FirebaseAuthService _auth = FirebaseAuthService();
+
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _postalCodeController = TextEditingController();
   final TapGestureRecognizer _tapRecognizer = TapGestureRecognizer();
 
   String? selectedRegion;
 
-  void _register() {
-    // Handle register logic here
-    print('Name: ${nameController.text}, Email: ${emailController.text}, Password: ${passwordController.text}, Region: $selectedRegion, Postal Code: ${postalCodeController.text}');
-  }
-
   @override
   void dispose() {
-    nameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    postalCodeController.dispose();
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _postalCodeController.dispose();
     _tapRecognizer.dispose();
     super.dispose();
   }
@@ -56,17 +57,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
               CustomTextField(
                 labelText: 'Nama',
                 hintText: 'Masukkan nama lengkap',
-                controller: nameController,
+                controller: _usernameController,
               ),
               CustomTextField(
                 labelText: 'Email',
                 hintText: 'Masukkan email',
-                controller: emailController,
+                controller: _emailController,
               ),
               CustomTextField(
                 labelText: 'Password',
                 hintText: '8 Karakter dan kombinasi simbol',
-                controller: passwordController,
+                controller: _passwordController,
                 obscureText: true,
               ),
               CustomDropdown(
@@ -82,13 +83,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               CustomTextField(
                 labelText: 'Kode Pos',
                 hintText: 'Masukkan kode pos',
-                controller: postalCodeController,
+                controller: _postalCodeController,
                 keyboardType: TextInputType.number,
               ),
               SizedBox(height: 20),
               CustomButton(
                 text: 'Daftar',
-                onPressed: _register,
+                onPressed: _signUp,
               ),
               SizedBox(height: 20),
               RichText(
@@ -113,4 +114,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+
+  void _signUp() async {
+    String username = _usernameController.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    User? user = await _auth.signUp(email, password);
+
+    if (user != null){
+      print("Akun telah berhasil dibuat");
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    } else {
+      print("Terjadi error");
+    }
+  }
+
 }
