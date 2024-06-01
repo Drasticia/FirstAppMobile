@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import '../components/bottomnavbar.dart';
 import '../components/custom_text_field.dart';
 import '../components/custom_button.dart';
 import 'register_screen.dart';
@@ -47,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     print('Email: ${emailController.text}, Password: ${passwordController.text}');
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
+      MaterialPageRoute(builder: (context) => BottomNavBar2()),
     );
   }
 
@@ -64,7 +65,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
               Image.asset('lib/icons/logo.png', height: 100), // Adjust the asset path accordingly.
               SizedBox(height: 20),
               Text(
-                'Masuk Sebagai Masyarakat',
+                'Masuk Sebagai\nMasyarakat',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,

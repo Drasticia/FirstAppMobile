@@ -2,7 +2,6 @@ import 'package:apptubes/screen/login_screen.dart';
 import 'package:apptubes/screen/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:apptubes/screen/regScreen.dart';
-import 'package:apptubes/screen/loginscreen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

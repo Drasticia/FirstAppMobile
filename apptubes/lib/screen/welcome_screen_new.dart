@@ -33,14 +33,7 @@ class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
                 width: 400,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      Theme.of(context).primaryColor,
-                      Theme.of(context).hintColor
-                    ],
-                  ),
+                  color: Theme.of(context).primaryColor,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -97,13 +90,13 @@ class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/icons/logo.png', height: 100),
+          Image.asset('lib/icons/logo.png', height: 100),
           SizedBox(height: 10),
           Text(
             'Masuk Sebagai',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 80),
           CustomButton(
             text: 'Masyarakat Umum',
             onPressed: () {
@@ -113,7 +106,7 @@ class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
               );
             },
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 15),
           CustomButton(
             text: 'Pemangku Kebijakan',
             onPressed: () {
@@ -132,13 +125,13 @@ class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset('assets/icons/logo.png', height: 100),
+          Image.asset('lib/icons/logo.png', height: 100),
           SizedBox(height: 10),
           Text(
             'Daftar Sebagai',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 80),
           CustomButton(
             text: 'Masyarakat Umum',
             onPressed: () {
@@ -148,7 +141,7 @@ class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
               );
             },
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 15),
           CustomButton(
             text: 'Pemangku Kebijakan',
             onPressed: () {
