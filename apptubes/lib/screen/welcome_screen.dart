@@ -1,3 +1,5 @@
+import 'package:apptubes/screen/login_screen.dart';
+import 'package:apptubes/screen/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:apptubes/screen/regScreen.dart';
 import 'package:apptubes/screen/loginscreen.dart';
@@ -81,12 +83,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>  loginScreen()));
+                                    builder: (context) =>  LoginScreen()));
                           } else {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const RegScreen()));
+                                    builder: (context) =>  RegisterScreen()));
                           }
                         },
                         child: Text(
