@@ -51,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SlideTransition(
         position: _offsetAnimation,
         child: Padding(
