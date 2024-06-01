@@ -17,10 +17,11 @@ class CustomDropdown extends StatelessWidget {
           hintText: hintText,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(color: Theme.of(context).hintColor),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Theme.of(context).primaryColor),
+            borderSide: BorderSide(color: Theme.of(context).hintColor),
           ),
         ),
         value: value,

@@ -23,7 +23,7 @@
 //           ),
 //           focusedBorder: OutlineInputBorder(
 //             borderRadius: BorderRadius.circular(10.0),
-//             borderSide: BorderSide(color: Theme.of(context).primaryColor),
+//             borderSide: BorderSide(color: Theme.of(context).hintColor),
 //           ),
 //         ),
 //       ),
@@ -53,19 +53,19 @@ class CustomTextField extends StatelessWidget {
         keyboardType: keyboardType,
         decoration: InputDecoration(
           labelText: labelText,
-          labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+          labelStyle: TextStyle(color: Theme.of(context).hintColor),
           hintText: hintText,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Theme.of(context).primaryColor),
+            borderSide: BorderSide(color: Theme.of(context).hintColor),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Theme.of(context).primaryColor, width: 2.0),
+            borderSide: BorderSide(color: Theme.of(context).hintColor, width: 2.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide(color: Theme.of(context).primaryColor),
+            borderSide: BorderSide(color: Theme.of(context).hintColor),
           ),
         ),
       ),

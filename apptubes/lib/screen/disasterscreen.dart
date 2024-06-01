@@ -70,84 +70,85 @@ class _DisasterScreenState extends State<DisasterScreen> {
     );
   }
 
-  Widget buildFilteringDialog(BuildContext context) {
-    return Dialog(
-      backgroundColor: Colors.transparent,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.8),
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.white.withOpacity(0.3)),
-        ),
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('Filtering', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black)),
-            SizedBox(height: 10),
-            DropdownButton<String>(
-              hint: Text('By Type'),
-              value: selectedType,
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedType = newValue;
-                });
-              },
-              items: <String>['Earthquake', 'Volcano', 'Typhoon', 'Fire']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            DropdownButton<String>(
-              hint: Text('By Time'),
-              value: selectedTime,
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedTime = newValue;
-                });
-              },
-              items: <String>['Recent', 'Past Week', 'Past Month']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            DropdownButton<String>(
-              hint: Text('By Criticality'),
-              value: selectedCriticality,
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedCriticality = newValue;
-                });
-              },
-              items: <String>['Mild', 'Moderate', 'Severe']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Apply'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget buildFilteringDialog(BuildContext context) {
+  //   return Dialog(
+  //     backgroundColor: Colors.transparent,
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         color: Colors.white.withOpacity(0.8),
+  //         borderRadius: BorderRadius.circular(20),
+  //         border: Border.all(color: Colors.white.withOpacity(0.3)),
+  //       ),
+  //       padding: const EdgeInsets.all(20),
+  //       child: Column(
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: [
+  //           Text('Filtering', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black)),
+  //           SizedBox(height: 10),
+  //           DropdownButton<String>(
+  //             hint: Text('By Type'),
+  //             value: selectedType,
+  //             onChanged: (String? newValue) {
+  //               setState(() {
+  //                 selectedType = newValue;
+  //               });
+  //             },
+  //             items: <String>['Earthquake', 'Volcano', 'Typhoon', 'Fire']
+  //                 .map<DropdownMenuItem<String>>((String value) {
+  //               return DropdownMenuItem<String>(
+  //                 value: value,
+  //                 child: Text(value),
+  //               );
+  //             }).toList(),
+  //           ),
+  //           DropdownButton<String>(
+  //             hint: Text('By Time'),
+  //             value: selectedTime,
+  //             onChanged: (String? newValue) {
+  //               setState(() {
+  //                 selectedTime = newValue;
+  //               });
+  //             },
+  //             items: <String>['Recent', 'Past Week', 'Past Month']
+  //                 .map<DropdownMenuItem<String>>((String value) {
+  //               return DropdownMenuItem<String>(
+  //                 value: value,
+  //                 child: Text(value),
+  //               );
+  //             }).toList(),
+  //           ),
+  //           DropdownButton<String>(
+  //             hint: Text('By Criticality'),
+  //             value: selectedCriticality,
+  //             onChanged: (String? newValue) {
+  //               setState(() {
+  //                 selectedCriticality = newValue;
+  //               });
+  //             },
+  //             items: <String>['Mild', 'Moderate', 'Severe']
+  //                 .map<DropdownMenuItem<String>>((String value) {
+  //               return DropdownMenuItem<String>(
+  //                 value: value,
+  //                 child: Text(value),
+  //               );
+  //             }).toList(),
+  //           ),
+  //           SizedBox(height: 20),
+  //           ElevatedButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //             child: Text('Apply'),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget disasterCard(String type, String location, String time, String criticality, BuildContext context) {
     return Card(
+
       margin: EdgeInsets.all(10),
       child: ListTile(
         leading: getDisasterIcon(type),
