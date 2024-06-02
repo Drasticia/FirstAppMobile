@@ -1,5 +1,6 @@
 import 'package:apptubes/screen/login_screen.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
@@ -17,7 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final FirebaseAuthService _auth = FirebaseAuthService();
 
-  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _postalCodeController = TextEditingController();
@@ -27,7 +28,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void dispose() {
-    _usernameController.dispose();
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _postalCodeController.dispose();
@@ -58,7 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               CustomTextField(
                 labelText: 'Nama',
                 hintText: 'Masukkan nama lengkap',
-                controller: _usernameController,
+                controller: _nameController,
               ),
               CustomTextField(
                 labelText: 'Email',
@@ -75,9 +76,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 hintText: 'Pilih daerah tempat kamu tinggal',
                 items: ['Jakarta', 'Bandung', 'Surabaya', 'Yogyakarta', 'Medan'],
                 value: selectedRegion,
-                onChanged: (String? newValue) {
+                onChanged: (String? origincity) {
                   setState(() {
-                    selectedRegion = newValue;
+                    selectedRegion = origincity;
                   });
                 },
               ),
@@ -116,15 +117,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void _signUp() async {
-    String username = _usernameController.text;
+  Future _signUp() async {
+    String username = _nameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
 
+    //create user
     User? user = await _auth.signUp(email, password);
 
     if (user != null){
       print("Akun telah berhasil dibuat");
+
+      addUserDetails(
+          _nameController.text.trim(),
+          _emailController.text.trim(),
+          selectedRegion,
+          _postalCodeController.text.trim()
+      );
 
       final snackBar = SnackBar(
         elevation: 0,
@@ -158,6 +167,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ..hideCurrentSnackBar()
         ..showSnackBar(snackBar);
     }
+  }
+  
+  Future addUserDetails(String name, String email, String? origincity, String postalcode) async {
+    await FirebaseFirestore.instance.collection('user').add({
+      'name': name,
+      'email': email,
+      'origin city': origincity,
+      'postal code': postalcode,
+    });
   }
 
 }
