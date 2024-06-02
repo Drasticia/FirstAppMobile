@@ -49,6 +49,7 @@ dependencies:
   google_maps_flutter: any
   flutter_google_places: any
   google_maps_webservice: any
+  firebase_messaging: ^14.9.4
   
 
 dev_dependencies:
