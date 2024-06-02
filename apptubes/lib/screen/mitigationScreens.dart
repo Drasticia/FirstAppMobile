@@ -88,6 +88,7 @@ class _MitigationPageState extends State<MitigationPage> {
     _foundItems = _allListItem;
     super.initState();
     _fetchWeather();
+    
   }
 
   void _runFilter(String enteredKeyboard){

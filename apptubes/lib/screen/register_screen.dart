@@ -1,4 +1,5 @@
 import 'package:apptubes/screen/login_screen.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
@@ -124,9 +125,38 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     if (user != null){
       print("Akun telah berhasil dibuat");
+
+      final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Selamat!',
+          message:
+          'Akun anda berhasil dibuat!',
+          contentType: ContentType.success,
+        ),
+      );
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
+
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
     } else {
-      print("Terjadi error");
+      final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Error!',
+          message:
+          'This email is already in use, try to sign up using another email!',
+          contentType: ContentType.failure,
+        ),
+      );
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
     }
   }
 
