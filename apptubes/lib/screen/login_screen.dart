@@ -7,6 +7,7 @@ import '../components/bottomnavbar.dart';
 import '../components/custom_text_field.dart';
 import '../components/custom_button.dart';
 import 'register_screen.dart';
+import 'forgot_password.dart';
 import 'homescreen.dart'; // Import HomeScreen
 
 class LoginScreen extends StatefulWidget {
@@ -84,10 +85,18 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
               ),
               Align(
                 alignment: Alignment.centerRight,
-                child: Text(
-                  'Lupa password?',
-                  style: TextStyle(
-                    color: Theme.of(context).hintColor,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
+                    );
+                  },
+                  child: Text(
+                    'Lupa password?',
+                    style: TextStyle(
+                      color: Theme.of(context).hintColor,
+                    ),
                   ),
                 ),
               ),
