@@ -12,14 +12,25 @@ class WelcomeScreenNew extends StatefulWidget {
 
 class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
   bool isLoginPage = true;
+  double statusBarHeight = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    getStatusBarHeight();
+  }
+
+  Future<void> getStatusBarHeight() async {
+    statusBarHeight = await MediaQuery.of(context).viewInsets.top; //height status bar nyesuain hp
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.red[700],
-        toolbarHeight: 5,
+        backgroundColor: Theme.of(context).cardColor,
+        toolbarHeight: statusBarHeight,
         automaticallyImplyLeading: false,
       ),
       body: Stack(

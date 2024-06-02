@@ -191,6 +191,7 @@ class _ReportScreenState extends State<ReportScreen> {
                             ),
                             Text(
                               'Report Has Been Sent',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
