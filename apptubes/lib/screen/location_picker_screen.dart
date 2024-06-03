@@ -108,7 +108,13 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Location'),
+        backgroundColor: const Color.fromRGBO(249, 201, 116, 1),
+        title: Text(
+          'Select Location',
+          style: TextStyle(
+            fontWeight: FontWeight.bold
+          ),
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.search),
@@ -157,6 +163,15 @@ class _LocationPickerScreenState extends State<LocationPickerScreen> {
                   : () {
                 Navigator.pop(context, _address);
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromRGBO(249, 201, 116, 1),
+                    padding: EdgeInsets.symmetric(horizontal: 100, vertical: 12),
+                    foregroundColor: Colors.black,
+                    textStyle: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
               child: Text('Confirm Location'),
             ),
           ),

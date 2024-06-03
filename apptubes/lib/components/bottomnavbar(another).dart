@@ -66,7 +66,6 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                 style: TextStyle(
                   color: Color.fromARGB(255, 188, 45, 34),
                   fontSize: 12,
-
                 ),
               ),
             ],
@@ -82,7 +81,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
-        notchMargin: 0,
+        notchMargin: 10,
         color: Color.fromRGBO(249, 61, 61, 0.612),
         elevation: 0,
         child: Container(

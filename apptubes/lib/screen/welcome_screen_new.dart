@@ -16,9 +16,9 @@ class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[295],
       appBar: AppBar(
-        backgroundColor: Colors.red[700],
+        backgroundColor:  Colors.grey[295],
         toolbarHeight: 5,
         automaticallyImplyLeading: false,
       ),
