@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../components/bottomnavbar(another).dart';
 import 'login_screen.dart';
 import 'register_screen.dart';
 import '../components/custom_button.dart';
@@ -12,14 +13,25 @@ class WelcomeScreenNew extends StatefulWidget {
 
 class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
   bool isLoginPage = true;
+  double statusBarHeight = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    // getStatusBarHeight();
+  }
+
+  // Future<void> getStatusBarHeight() async {
+  //   statusBarHeight = await MediaQuery.of(context).viewInsets.top; //height status bar nyesuain hp
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[295],
       appBar: AppBar(
-        backgroundColor:  Colors.grey[295],
-        toolbarHeight: 5,
+        backgroundColor: Theme.of(context).cardColor,
+        toolbarHeight: statusBarHeight,
         automaticallyImplyLeading: false,
       ),
       body: Stack(
@@ -145,7 +157,10 @@ class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
           CustomButton(
             text: 'Pemangku Kebijakan',
             onPressed: () {
-              // Navigate to the appropriate register screen for policymakers
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NavbarAnother()),
+              );
             },
           ),
         ],

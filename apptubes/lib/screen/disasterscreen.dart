@@ -16,6 +16,7 @@ class _DisasterScreenState extends State<DisasterScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         title: Text(
           'Disaster',

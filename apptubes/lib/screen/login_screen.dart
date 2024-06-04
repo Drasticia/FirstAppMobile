@@ -16,14 +16,16 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
+  double statusBarHeight = 0.0;
 
   final FirebaseAuthService _auth = FirebaseAuthService();
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   final TapGestureRecognizer _tapRecognizer = TapGestureRecognizer();
+
+
 
   @override
   void initState() {
@@ -39,7 +41,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       parent: _controller,
       curve: Curves.easeInOut,
     ));
+    // getStatusBarHeight();
   }
+
+  // Future<void> getStatusBarHeight() async {
+  //   statusBarHeight = await MediaQuery.of(context).viewInsets.top; //height status bar nyesuain hp
+  // }
 
   @override
   void dispose() {
@@ -54,6 +61,11 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).cardColor,
+        toolbarHeight: statusBarHeight,
+        automaticallyImplyLeading: false,
+      ),
       body: SlideTransition(
         position: _offsetAnimation,
         child: Padding(
@@ -69,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
+                  // fontFamily: 'SF-Pro',
                   color: Theme.of(context).primaryColor,
                 ),
               ),
