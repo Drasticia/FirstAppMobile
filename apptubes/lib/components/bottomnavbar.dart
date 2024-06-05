@@ -66,7 +66,6 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                 style: TextStyle(
                   color: Color.fromARGB(255, 188, 45, 34),
                   fontSize: 12,
-
                 ),
               ),
             ],

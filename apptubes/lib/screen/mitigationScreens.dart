@@ -229,7 +229,8 @@ class _MitigationPageState extends State<MitigationPage> {
                       : const Text(
                     'No Result Found',
                     style: TextStyle(fontSize: 24),
-                  )),
+                  )
+                ),
             ],
           ),
         ],

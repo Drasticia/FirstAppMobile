@@ -64,7 +64,7 @@ class _ReportScreenState extends State<ReportScreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      padding: const EdgeInsets.symmetric(horizontal: 17),
                       child: Text(
                         'For Someone Else',
                         style: TextStyle(

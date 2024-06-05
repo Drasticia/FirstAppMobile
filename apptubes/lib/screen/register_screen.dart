@@ -39,10 +39,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
-    getStatusBarHeight();
+    // getStatusBarHeight();
   }
   Future<void> getStatusBarHeight() async {
-    statusBarHeight = await MediaQuery.of(context).viewInsets.top; //height status bar nyesuain hp
+    // statusBarHeight = await MediaQuery.of(context).viewInsets.top; //height status bar nyesuain hp
   }
   @override
   Widget build(BuildContext context) {
