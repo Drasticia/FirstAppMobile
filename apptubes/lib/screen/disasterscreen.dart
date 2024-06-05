@@ -181,7 +181,17 @@ class _DisasterScreenState extends State<DisasterScreen> {
                             Center(
                               child: Column(
                                 children: [
-                                  getDisasterIcon(type),
+                                  Container(
+                                    child: getDisasterIcon(type),
+                                    width: 100,
+                                    height: 5,
+                                    margin: EdgeInsets.only(bottom: 20),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      borderRadius: BorderRadius.circular(2.5)
+                                    ),
+
+                                  ),
                                   Text(
                                     'Disaster Information',
                                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),

@@ -41,12 +41,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       parent: _controller,
       curve: Curves.easeInOut,
     ));
-    getStatusBarHeight();
+    // getStatusBarHeight();
   }
 
-  Future<void> getStatusBarHeight() async {
-    statusBarHeight = await MediaQuery.of(context).viewInsets.top; //height status bar nyesuain hp
-  }
+  // Future<void> getStatusBarHeight() async {
+  //   statusBarHeight = await MediaQuery.of(context).viewInsets.top; //height status bar nyesuain hp
+  // }
 
   @override
   void dispose() {

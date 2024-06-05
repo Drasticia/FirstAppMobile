@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import '../screen/disasterscreen.dart';
 import '../screen/homescreen.dart';
 import '../screen/mitigationScreens.dart';
+import '../screen/report_received.dart';
 import '../screen/reportscreen.dart';
 
-class BottomNavBar2 extends StatefulWidget {
+class NavbarAnother extends StatefulWidget {
   int selectedIndex = 0;
 
   @override
-  State<BottomNavBar2> createState() => _BottomNavBar2State();
+  State<NavbarAnother> createState() => _NavbarAnotherState();
 }
 
-class _BottomNavBar2State extends State<BottomNavBar2> {
+class _NavbarAnotherState extends State<NavbarAnother> {
   @override
   void initState() {
     super.initState();
@@ -22,7 +23,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
   final List<Widget> pages = [
     HomeScreen(),
     DisasterScreen(),
-    const ReportScreen(),
+    const Report_Received(),
     const MitigationPage(),
   ];
 
@@ -72,7 +73,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
           ),
           onPressed: () {
             setState(() {
-              currentScreen = ReportScreen();
+              currentScreen = Report_Received();
               currentTab = 4;
             });
           },
@@ -81,7 +82,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
-        notchMargin: 0,
+        notchMargin: 10,
         color: Color.fromRGBO(249, 61, 61, 0.612),
         elevation: 0,
         child: Container(
