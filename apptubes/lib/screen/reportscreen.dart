@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'location_picker_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({super.key});
@@ -10,6 +11,13 @@ class ReportScreen extends StatefulWidget {
 }
 
 class _ReportScreenState extends State<ReportScreen> {
+
+  // Variable Controllers
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _geolocationController = TextEditingController();
+  final TextEditingController _detailedInformationController = TextEditingController();
+
   bool isForMyself = true;
   String selectedEmergency = '';
   String selectedLocationAddress = '[Selected Location]';
@@ -22,8 +30,17 @@ class _ReportScreenState extends State<ReportScreen> {
     'Landslide',
     'Typhoon'
   ];
-
+  
   @override
+
+  void dispose() {
+    _nameController.dispose();
+    _phoneNumberController.dispose();
+    _geolocationController.dispose();
+    _detailedInformationController.dispose();
+    super.dispose();
+  }
+  
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -85,6 +102,7 @@ class _ReportScreenState extends State<ReportScreen> {
                   fillColor: const Color.fromRGBO(249, 201, 116, 1),
                   borderColor: Colors.grey.shade400,
                 ),
+
                 SizedBox(height: 20),
                 TextField(
                   decoration: InputDecoration(
@@ -92,6 +110,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   ),
+                  controller: _nameController,
                 ),
                 SizedBox(height: 10),
                 TextField(
@@ -100,11 +119,12 @@ class _ReportScreenState extends State<ReportScreen> {
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   ),
+                  controller: _phoneNumberController,
                 ),
                 SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: () async {
-                    final result = await Navigator.push(
+                    var result = await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => LocationPickerScreen(),
@@ -114,6 +134,7 @@ class _ReportScreenState extends State<ReportScreen> {
                       setState(() {
                         selectedLocationAddress = result;
                       });
+                      result = _geolocationController;
                     }
                   },
                   style: ElevatedButton.styleFrom(
@@ -147,6 +168,7 @@ class _ReportScreenState extends State<ReportScreen> {
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   ),
+                  controller: _detailedInformationController,
                 ),
                 SizedBox(height: 15),
                 Text(
@@ -244,5 +266,23 @@ class _ReportScreenState extends State<ReportScreen> {
         ),
       ),
     );
+  }
+
+  // Create data on Firestore
+  Future _addReportDetails(String name, String phoneNumber, String geolocation, String detailedInformation, String? emergency) async {
+
+    name = _nameController.text;
+    phoneNumber = _phoneNumberController.text;
+    geolocation = _geolocationController.text;
+    detailedInformation = _detailedInformationController.text;
+    emergency = selectedEmergency;
+
+    await FirebaseFirestore.instance.collection('Report').add({
+      'name': name,
+      'phonenumber': phoneNumber,
+      'geolocation': geolocation,
+      'detailedInformation': detailedInformation,
+      'emergency': emergency,
+    });
   }
 }
