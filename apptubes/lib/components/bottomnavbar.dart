@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../screen/disasterscreen.dart';
 import '../screen/homescreen.dart';
 import '../screen/mitigationScreens.dart';
+import '../screen/more_screen.dart';
 import '../screen/reportscreen.dart';
 
 class BottomNavBar2 extends StatefulWidget {
@@ -186,7 +187,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = DisasterScreen();
+                        currentScreen = MoreScreen();
                         currentTab = 3;
                       });
                     },

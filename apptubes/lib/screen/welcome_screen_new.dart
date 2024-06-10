@@ -1,3 +1,5 @@
+import 'package:apptubes/screen/policymakerregisscreen.dart';
+import 'package:apptubes/screen/policymarkerloginscreen.dart';
 import 'package:flutter/material.dart';
 import '../components/bottomnavbar(another).dart';
 import 'login_screen.dart';
@@ -122,7 +124,10 @@ class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
           CustomButton(
             text: 'Pemangku Kebijakan',
             onPressed: () {
-              // Navigate to the appropriate login screen for policymakers
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PolicyMakerLoginScreen()),
+              );
             },
           ),
         ],
@@ -159,7 +164,7 @@ class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => NavbarAnother()),
+                MaterialPageRoute(builder: (context) => PolicyMakerRegisterScreen()),
               );
             },
           ),

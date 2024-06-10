@@ -474,18 +474,20 @@ class _ReportScreenState extends State<ReportScreen> {
     GeoPoint? geolocation = selectedLocation != null ? GeoPoint(selectedLocation!.latitude, selectedLocation!.longitude) : null;
     String detailedInformation = _detailedInformationController.text;
     String emergency = selectedEmergency;
+    String address = selectedLocationAddress;
     var i = 1;
 
     if (name.isNotEmpty && phoneNumber.isNotEmpty && emergency.isNotEmpty) {
-      await FirebaseFirestore.instance
-          .collection('Report')
-          .add({
-        'name': name,
-        'phonenumber': phoneNumber,
-        'geolocation': geolocation,
-        'detailedInformation': detailedInformation,
-        'emergency': emergency,
-      });
+    await FirebaseFirestore.instance.collection('Report').add({
+      'name': name,
+      'phonenumber': phoneNumber,
+      'geolocation': geolocation,
+      'address': address,
+      'detailedInformation': detailedInformation,
+      'emergency': emergency,
+      'status': 'pending', // Status laporan
+      'timestamp': FieldValue.serverTimestamp(), // Waktu laporan
+    });
     } else {
       print("Create gagal");
     }

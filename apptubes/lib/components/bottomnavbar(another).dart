@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../screen/disasterscreen.dart';
 import '../screen/homescreen.dart';
 import '../screen/mitigationScreens.dart';
+import '../screen/more_screen.dart';
 import '../screen/report_received.dart';
 import '../screen/reportscreen.dart';
 
@@ -23,7 +24,7 @@ class _NavbarAnotherState extends State<NavbarAnother> {
   final List<Widget> pages = [
     HomeScreen(),
     DisasterScreen(),
-    const Report_Received(),
+     Report_Received(),
     const MitigationPage(),
   ];
 
@@ -187,7 +188,7 @@ class _NavbarAnotherState extends State<NavbarAnother> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = DisasterScreen();
+                        currentScreen = MoreScreen();
                         currentTab = 3;
                       });
                     },

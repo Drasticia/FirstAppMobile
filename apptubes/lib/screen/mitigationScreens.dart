@@ -154,6 +154,9 @@ class _MitigationPageState extends State<MitigationPage> {
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Search Tsunami, Earthquake, etc.',
+                              hintStyle: TextStyle(
+                                color: Colors.grey
+                              ),
                               prefixIcon: Icon(Icons.search_sharp)),
                         ),
                       ),
