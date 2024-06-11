@@ -246,6 +246,7 @@
 //   }
 // }
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -265,6 +266,7 @@ class _ReportScreenState extends State<ReportScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _detailedInformationController = TextEditingController();
+  final User? user = FirebaseAuth.instance.currentUser;
 
   bool isForMyself = true;
   String selectedEmergency = '';
@@ -475,6 +477,7 @@ class _ReportScreenState extends State<ReportScreen> {
     String detailedInformation = _detailedInformationController.text;
     String emergency = selectedEmergency;
     String address = selectedLocationAddress;
+    String email = user?.email ?? '';
     var i = 1;
 
     if (name.isNotEmpty && phoneNumber.isNotEmpty && emergency.isNotEmpty) {
@@ -485,6 +488,7 @@ class _ReportScreenState extends State<ReportScreen> {
       'address': address,
       'detailedInformation': detailedInformation,
       'emergency': emergency,
+      'email': email,
       'status': 'pending', // Status laporan
       'timestamp': FieldValue.serverTimestamp(), // Waktu laporan
     });
