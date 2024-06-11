@@ -187,14 +187,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           SizedBox(height: 16.0),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Color.fromARGB(255, 182, 182, 182),
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            padding: EdgeInsets.all(16.0),
-                            child: Column(
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'General',
@@ -214,7 +208,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                          ),
                           SizedBox(height: 20),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
