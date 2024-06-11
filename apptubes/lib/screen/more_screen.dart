@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:apptubes/screen/reportstatusscreen.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MoreScreen extends StatefulWidget {
   const MoreScreen({super.key});
@@ -9,6 +13,8 @@ class MoreScreen extends StatefulWidget {
 }
 
 class _MoreScreenState extends State<MoreScreen> {
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,12 +54,30 @@ class _MoreScreenState extends State<MoreScreen> {
           ListTile(
             leading: Icon(Icons.logout),
             title: Text('Log Out'),
-            onTap: () {
+            onTap: () { _signOut();
               // Perform logout
             },
           ),
         ],
       ),
     );
+  }
+  void _signOut() async{
+      await _firebaseAuth.signOut();
+      Navigator.pop(context);
+      final snackBar = SnackBar(
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        content: AwesomeSnackbarContent(
+          title: 'Notice',
+          message:
+          'Anda sudah berhasil log-out',
+          contentType: ContentType.failure,
+        ),
+      );
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
   }
 }
