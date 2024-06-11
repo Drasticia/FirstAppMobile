@@ -50,6 +50,7 @@ dependencies:
   flutter_google_places: any
   google_maps_webservice: any
   firebase_messaging: ^14.9.4
+  flutter_phone_direct_caller: ^2.1.1
   
 
 dev_dependencies:
