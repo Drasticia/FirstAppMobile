@@ -84,6 +84,7 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(255, 192, 65, 1),
         title: Text(
           'Emergency Contact',
           style: TextStyle(
