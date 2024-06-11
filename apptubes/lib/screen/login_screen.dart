@@ -1,6 +1,8 @@
-import 'package:apptubes/models/firebase_auth/authentication.dart';
+import 'package:apptubes/models/api/firebase_auth.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import '../components/bottomnavbar.dart';
