@@ -1,13 +1,15 @@
+import 'package:apptubes/models/api/firebase_messaging.dart';
 import 'package:apptubes/screen/login_screen.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import '../components/custom_text_field.dart';
 import '../components/custom_button.dart';
 import '../components/custom_dropdown.dart';
-import '../models/firebase_auth/authentication.dart';
+import '../models/api/firebase_auth.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -185,6 +187,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
   
   Future addUserDetails(String name, String email, String? origincity, String postalcode) async {
+
     await FirebaseFirestore.instance.collection('user').add({
       'name': name,
       'email': email,
