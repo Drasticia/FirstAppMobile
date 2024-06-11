@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DisasterScreen extends StatefulWidget {
   @override
@@ -54,14 +55,35 @@ class _DisasterScreenState extends State<DisasterScreen> {
                 ),
               ),
               Expanded(
-                child: ListView(
-                  children: [
-                    disasterCard('Earthquake', 'Cianjur, Jawa Barat', '17:08, 30 February 2024', 'Mild (5.3 SR)', context),
-                    disasterCard('Flood', 'Rancaekek, Bandung', '02:00, 20 September 2023', 'Mild (5.3 SR)', context),
-                    disasterCard('Typhoon', 'Cianjur, Jawa Barat', '17:08, 30 February 2024', 'Mild (5.3 SR)', context),
-                    disasterCard('Fire', 'Cianjur, Jawa Barat', '17:08, 30 February 2024', 'Mild (5.3 SR)', context),
-                    disasterCard('Volcano', 'Cianjur, Jawa Barat', '17:08, 30 February 2024', 'Mild (5.3 SR)', context),
-                  ],
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Report')
+                      .where('status', isEqualTo: 'accepted')
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    final data = snapshot.requireData;
+                    return ListView.builder(
+                      itemCount: data.size,
+                      itemBuilder: (context, index) {
+                        var report = data.docs[index];
+                        return disasterCard(
+                          report['emergency'],
+                          report['address'],
+                          report['timestamp'] != null
+                              ? (report['timestamp'] as Timestamp).toDate().toString()
+                              : 'Unknown time',
+                          report['detailedInformation'],
+                          context,
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
             ],
@@ -71,85 +93,8 @@ class _DisasterScreenState extends State<DisasterScreen> {
     );
   }
 
-  // Widget buildFilteringDialog(BuildContext context) {
-  //   return Dialog(
-  //     backgroundColor: Colors.transparent,
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         color: Colors.white.withOpacity(0.8),
-  //         borderRadius: BorderRadius.circular(20),
-  //         border: Border.all(color: Colors.white.withOpacity(0.3)),
-  //       ),
-  //       padding: const EdgeInsets.all(20),
-  //       child: Column(
-  //         mainAxisSize: MainAxisSize.min,
-  //         children: [
-  //           Text('Filtering', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black)),
-  //           SizedBox(height: 10),
-  //           DropdownButton<String>(
-  //             hint: Text('By Type'),
-  //             value: selectedType,
-  //             onChanged: (String? newValue) {
-  //               setState(() {
-  //                 selectedType = newValue;
-  //               });
-  //             },
-  //             items: <String>['Earthquake', 'Volcano', 'Typhoon', 'Fire']
-  //                 .map<DropdownMenuItem<String>>((String value) {
-  //               return DropdownMenuItem<String>(
-  //                 value: value,
-  //                 child: Text(value),
-  //               );
-  //             }).toList(),
-  //           ),
-  //           DropdownButton<String>(
-  //             hint: Text('By Time'),
-  //             value: selectedTime,
-  //             onChanged: (String? newValue) {
-  //               setState(() {
-  //                 selectedTime = newValue;
-  //               });
-  //             },
-  //             items: <String>['Recent', 'Past Week', 'Past Month']
-  //                 .map<DropdownMenuItem<String>>((String value) {
-  //               return DropdownMenuItem<String>(
-  //                 value: value,
-  //                 child: Text(value),
-  //               );
-  //             }).toList(),
-  //           ),
-  //           DropdownButton<String>(
-  //             hint: Text('By Criticality'),
-  //             value: selectedCriticality,
-  //             onChanged: (String? newValue) {
-  //               setState(() {
-  //                 selectedCriticality = newValue;
-  //               });
-  //             },
-  //             items: <String>['Mild', 'Moderate', 'Severe']
-  //                 .map<DropdownMenuItem<String>>((String value) {
-  //               return DropdownMenuItem<String>(
-  //                 value: value,
-  //                 child: Text(value),
-  //               );
-  //             }).toList(),
-  //           ),
-  //           SizedBox(height: 20),
-  //           ElevatedButton(
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //             child: Text('Apply'),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget disasterCard(String type, String location, String time, String criticality, BuildContext context) {
     return Card(
-
       margin: EdgeInsets.all(10),
       child: ListTile(
         leading: getDisasterIcon(type),
@@ -188,9 +133,8 @@ class _DisasterScreenState extends State<DisasterScreen> {
                                     margin: EdgeInsets.only(bottom: 20),
                                     decoration: BoxDecoration(
                                       color: Colors.black,
-                                      borderRadius: BorderRadius.circular(2.5)
+                                      borderRadius: BorderRadius.circular(2.5),
                                     ),
-
                                   ),
                                   Text(
                                     'Disaster Information',
@@ -208,14 +152,7 @@ class _DisasterScreenState extends State<DisasterScreen> {
                                     time,
                                     style: TextStyle(fontSize: 18),
                                   ),
-                                  Text(
-                                    '5.6',
-                                    style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: Colors.blue),
-                                  ),
-                                  Text(
-                                    'Richter Scale',
-                                    style: TextStyle(fontSize: 18),
-                                  ),
+                                  
                                 ],
                               ),
                             ),
@@ -226,7 +163,7 @@ class _DisasterScreenState extends State<DisasterScreen> {
                             ),
                             SizedBox(height: 20),
                             Image.network(
-                              'https://maps.googleapis.com/maps/api/staticmap?center=$location&zoom=13&size=600x300&key=YOUR_API_KEY',
+                              'https://maps.googleapis.com/maps/api/staticmap?center=$location&zoom=13&size=600x300&key=AIzaSyA-iLkgb1HiZwOepOWO9TtTI0Ly99SiH0A',
                               fit: BoxFit.cover,
                             ),
                           ],
