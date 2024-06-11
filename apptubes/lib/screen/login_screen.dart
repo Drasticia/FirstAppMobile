@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w800,
                   // fontFamily: 'SF-Pro',
                   color: Theme.of(context).primaryColor,
                 ),
@@ -110,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     'Lupa password?',
                     style: TextStyle(
                       color: Theme.of(context).hintColor,
+                      fontWeight: FontWeight.w400,
                     ),
                   ),
                 ),
