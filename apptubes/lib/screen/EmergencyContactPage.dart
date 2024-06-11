@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../components/custom_text_field.dart';
 
 class EmergencyContactPage extends StatefulWidget {
@@ -9,19 +10,19 @@ class EmergencyContactPage extends StatefulWidget {
 }
 
 class _EmergencyContactPageState extends State<EmergencyContactPage> {
-  final List<Map<String, String>> _contacts = [];
+  final _nameController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final User? user = FirebaseAuth.instance.currentUser;
 
-  void _addContact(String name, String phoneNumber) {
-    setState(() {
-      _contacts.add({'name': name, 'phoneNumber': phoneNumber});
-    });
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneNumberController.dispose();
+    super.dispose();
   }
 
   void _showAddContactDialog() {
-    final _nameController = TextEditingController();
-    final _phoneNumberController = TextEditingController();
-    final _formKey = GlobalKey<FormState>();
-
     showDialog(
       context: context,
       builder: (context) {
@@ -68,7 +69,7 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
             TextButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  _addContact(_nameController.text, _phoneNumberController.text);
+                  addEmergencyContact(_nameController.text, _phoneNumberController.text);
                   Navigator.of(context).pop();
                 }
               },
@@ -144,56 +145,90 @@ class _EmergencyContactPageState extends State<EmergencyContactPage> {
               ),
             ),
             SizedBox(height: 20),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Keluarga',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 17,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Keluarga',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 17,
+                    ),
                   ),
-                ),
-                ListTile(
-                  leading: ImageIcon(
-                    AssetImage("lib/icons/contact.png"),
-                    size: 40.0,
-                    color: Colors.black,
-                  ),
-                  title: Text('Tambah Kontak Baru'),
-                  trailing: IconButton(
-                    onPressed: _showAddContactDialog,
-                    icon: ImageIcon(
-                      AssetImage("lib/icons/addContact.png"),
-                      size: 23.0,
+                  ListTile(
+                    leading: ImageIcon(
+                      AssetImage("lib/icons/contact.png"),
+                      size: 40.0,
                       color: Colors.black,
                     ),
-                  ),
-                ),
-                ..._contacts.map((contact) {
-                  return ListTile(
-                    leading: CircleAvatar(
-                      child: Text(contact['name']![0].toUpperCase()),
-                    ),
-                    title: Text(contact['name']!),
-                    subtitle: Text(contact['phoneNumber']!),
+                    title: Text('Tambah Kontak Baru'),
                     trailing: IconButton(
-                      onPressed: () async {
-                        await FlutterPhoneDirectCaller.callNumber(contact['phoneNumber']!);
-                      },
+                      onPressed: _showAddContactDialog,
                       icon: ImageIcon(
-                        AssetImage("lib/icons/call.png"),
+                        AssetImage("lib/icons/addContact.png"),
                         size: 23.0,
-                        color: Colors.blue,
+                        color: Colors.black,
                       ),
                     ),
-                  );
-                }).toList(),
-              ],
+                  ),
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance.collection('emergency contact')
+                          .where('email', isEqualTo: user?.email)
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        if (snapshot.hasError) {
+                          return Center(child: Text('Error: ${snapshot.error}'));
+                        }
+                        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                          return Center(child: Text('No contacts available'));
+                        }
+
+                        return ListView(
+                          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                            Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                            return ListTile(
+                              leading: CircleAvatar(
+                                child: Text(data['name'][0].toUpperCase()),
+                              ),
+                              title: Text(data['name']),
+                              subtitle: Text(data['phoneNumber']),
+                              trailing: IconButton(
+                                onPressed: () async {
+                                  await FlutterPhoneDirectCaller.callNumber(data['phoneNumber']);
+                                },
+                                icon: ImageIcon(
+                                  AssetImage("lib/icons/call.png"),
+                                  size: 23.0,
+                                  color: Colors.blue,
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
       ),
     );
   }
+  Future<void> addEmergencyContact(String name, String phoneNumber) async {
+    String email = user?.email ?? '';
+
+    await FirebaseFirestore.instance.collection('emergency contact').add({
+      'name': name,
+      'phoneNumber': phoneNumber,
+      'email': email
+    });
+  }
+
 }
