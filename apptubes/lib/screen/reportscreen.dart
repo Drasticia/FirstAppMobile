@@ -446,7 +446,9 @@ class _ReportScreenState extends State<ReportScreen> {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: _addReportDetails,
+                  onPressed: () {
+                    _addReportDetails(context);
+                  },
                   child: Text(
                     'Send Report',
                     style: TextStyle(
@@ -472,19 +474,20 @@ class _ReportScreenState extends State<ReportScreen> {
   }
 
   // Create data on Firestore
-  Future _addReportDetails() async {
-    String name = _nameController.text;
-    String phoneNumber = _phoneNumberController.text;
-    GeoPoint? geolocation = selectedLocation != null ? GeoPoint(selectedLocation!.latitude, selectedLocation!.longitude) : null;
-    String detailedInformation = _detailedInformationController.text;
-    String emergency = selectedEmergency;
-    String address = selectedLocationAddress;
-    var i = 1;
+  Future _addReportDetails(BuildContext context) async {
+  String name = _nameController.text;
+  String phoneNumber = _phoneNumberController.text;
+  GeoPoint? geolocation = selectedLocation != null ? GeoPoint(selectedLocation!.latitude, selectedLocation!.longitude) : null;
+  String detailedInformation = _detailedInformationController.text;
+  String emergency = selectedEmergency;
+  String address = selectedLocationAddress;
+  String email = user?.email ?? '';
 
-    if (name.isNotEmpty && phoneNumber.isNotEmpty && emergency.isNotEmpty) {
+  if (name.isNotEmpty && phoneNumber.isNotEmpty && emergency.isNotEmpty) {
     await FirebaseFirestore.instance.collection('Report').add({
       'name': name,
       'phonenumber': phoneNumber,
+      'email': email,
       'geolocation': geolocation,
       'address': address,
       'detailedInformation': detailedInformation,
@@ -492,8 +495,58 @@ class _ReportScreenState extends State<ReportScreen> {
       'status': 'pending', // Status laporan
       'timestamp': FieldValue.serverTimestamp(), // Waktu laporan
     });
-    } else {
-      print("Create gagal");
-    }
+
+    // Tampilkan dialog konfirmasi setelah laporan berhasil dikirim
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => Dialog(
+        backgroundColor: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(
+                Icons.check_circle_outline_outlined,
+                size: 150,
+                color: const Color.fromRGBO(249, 201, 116, 1),
+              ),
+              Text(
+                'Report Has Been Sent',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 15),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: const Color.fromRGBO(190, 48, 0, 1),
+                  textStyle: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 70, vertical: 15),
+                ),
+                child: Text(
+                  'DONE',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  } else {
+    print("Create gagal");
   }
+}
 }
