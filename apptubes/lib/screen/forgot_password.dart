@@ -1,4 +1,4 @@
-import 'package:apptubes/models/firebase_auth/authentication.dart';
+import 'package:apptubes/models/api/firebase_auth.dart';
 import 'package:apptubes/screen/login_screen.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';

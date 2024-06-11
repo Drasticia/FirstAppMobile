@@ -113,19 +113,21 @@
 //   }
 // }
 
-import 'package:apptubes/screen/welcome_screen.dart';
+import 'package:apptubes/models/api/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'screen/splash_screen.dart';
-import 'screen/welcome_screen_new.dart';
-
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
+import 'package:firebase_in_app_messaging/firebase_in_app_messaging.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseMessagingService().initNotifications();
   runApp(const MyApp());
 }
 

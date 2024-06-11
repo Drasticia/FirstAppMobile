@@ -246,6 +246,8 @@
 //   }
 // }
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -265,6 +267,8 @@ class _ReportScreenState extends State<ReportScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _detailedInformationController = TextEditingController();
+  final User? user = FirebaseAuth.instance.currentUser;
+  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
   bool isForMyself = true;
   String selectedEmergency = '';
