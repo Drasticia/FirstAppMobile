@@ -36,7 +36,6 @@ class _Report_ReceivedState extends State<Report_Received> {
             children: snapshot.data!.docs.map((doc) {
               final emergencyType = doc['emergency'];
               Widget? leadingIcon;
-
               // Memeriksa jenis bencana dan mengatur gambar yang sesuai
               switch (emergencyType) {
                 case 'Fire':
