@@ -1,4 +1,6 @@
 import 'package:apptubes/screen/reportstatusscreen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MoreScreen extends StatefulWidget {
@@ -9,6 +11,27 @@ class MoreScreen extends StatefulWidget {
 }
 
 class _MoreScreenState extends State<MoreScreen> {
+  String? _userEmail;
+
+  @override
+  void initState() {
+    super.initState();
+    _getUserEmail();
+  }
+
+  Future<void> _getUserEmail() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      setState(() {
+        _userEmail = user.email;
+      });
+    } else {
+      setState(() {
+        _userEmail = 'User not logged in';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,10 +45,23 @@ class _MoreScreenState extends State<MoreScreen> {
             fontWeight: FontWeight.bold,
             fontSize: 25,
           ),
-        )
+        ),
       ),
       body: ListView(
         children: [
+          ListTile(
+            leading: Icon(
+              Icons.person,
+              size: 30,
+              color: Colors.black,
+            ),
+            title: Text(
+              _userEmail ?? 'Loading...',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ),
           ListTile(
             leading: Icon(
               Icons.track_changes,
@@ -35,7 +71,7 @@ class _MoreScreenState extends State<MoreScreen> {
             title: Text(
               'Report Status',
               style: TextStyle(
-                fontSize: 16
+                fontSize: 16,
               ),
             ),
             onTap: () {
