@@ -34,50 +34,50 @@ class _MitigationPageState extends State<MitigationPage> {
       "id" : 1,
       "tittle" : "Volcano Mitigation Page",
       "page" : VolcanoPage(),
-      "name" : "VOLCANO",
-      "image" : "lib/icons/42463volcano_99098.png",
+      "name" : "Erupsi",
+      "image" : "lib/icons/gunungMeletusIcon.png",
     },
     {
       "id" : 2,
       "tittle" : "Flood Mitigation Page",
       "page" : FloodPage(),
-      "name" : "FLOOD",
-      "image" : "lib/icons/landslide.png",
+      "name" : "Banjir",
+      "image" : "lib/icons/banjirIcon.png",
     },
     {
       "id" : 3,
       "tittle" : "Tsunami Mitigation Page",
       "page" : TsunamiPage(),
-      "name" : "TSUNAMI",
+      "name" : "Tsunami",
       "image" : "lib/icons/tsunami_wavesw_ave_sea_natural_phenomenon_icon_194273.png",
     },
     {
       "id" : 4,
       "tittle" : "Earthquake Mitigation Page",
       "page" : EarthquakePage(),
-      "name" : "EARTHQUAKE",
-      "image" : "lib/icons/earthquake_earth_ground_floor_planet_natural_phenomenon_icon_194292.png",
+      "name" : "Gempa Bumi",
+      "image" : "lib/icons/gempaIcon.png",
     },
     {
       "id" : 5,
       "tittle" : "Landslide Mitigation Page",
       "page" : LandslidePage(),
-      "name" : "LANDSLIDE",
+      "name" : "Longsor",
       "image" : "lib/icons/landslide_land_rocks_stones_slope_icon_194275.png",
     },
     {
       "id" : 6,
       "tittle" : "Fire Mitigation Page",
       "page" : FirePage(),
-      "name" : "FIRE",
-      "image" : "lib/icons/pngwing.com.png",
+      "name" : "Kebakaran",
+      "image" : "lib/icons/kebakaranIcon.png",
     },
     {
       "id" : 7,
       "tittle" : "Typhoon Mitigation Page",
       "page" : TyphoonPage(),
-      "name" : "TYPHOON",
-      "image" : "lib/icons/tornado_twister_weather_natural_phenomenon_wind_icon_194265.png",
+      "name" : "Angin Topan",
+      "image" : "lib/icons/anginTopanIcon.png",
     },
   ];
 
@@ -88,7 +88,7 @@ class _MitigationPageState extends State<MitigationPage> {
     _foundItems = _allListItem;
     super.initState();
     _fetchWeather();
-    
+
   }
 
   void _runFilter(String enteredKeyboard){
@@ -125,14 +125,6 @@ class _MitigationPageState extends State<MitigationPage> {
           // Background container with transparency
           Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Colors.white.withOpacity(0.6), // Change opacity here
-                  Colors.white.withOpacity(0.6), // Change opacity here
-                ],
-              ),
             ),
           ),
           Column(

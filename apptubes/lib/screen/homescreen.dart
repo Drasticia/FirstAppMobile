@@ -114,10 +114,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Recent Information',
+                            'Bencana Baru Terjadi',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: 20,
                             ),
                           ),
                           SizedBox(height: 8.0),
@@ -145,65 +145,104 @@ class _HomeScreenState extends State<HomeScreen> {
 
                               String mapUrl = 'https://maps.googleapis.com/maps/api/staticmap?center=$location&zoom=13&size=600x300&key=AIzaSyA-iLkgb1HiZwOepOWO9TtTI0Ly99SiH0A';
 
-                              return Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                padding: EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey),
-                                        borderRadius: BorderRadius.circular(15),
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(15),
+                                    child: Image.network(
+                                      mapUrl,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(height: 25.0),
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        'lib/icons/locationIcon.png',
+                                        width: 25,
+                                        height: 25,
+                                        color: Colors.blue,
                                       ),
-                                      padding: EdgeInsets.all(16.0),
-                                      child: Image.network(
-                                        mapUrl,
-                                        fit: BoxFit.cover,
+                                      SizedBox(width: 8.0),
+                                      Expanded(
+                                        child: Text(
+                                          location,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.black
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(height: 8.0),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.location_on, color: Colors.blue),
-                                        SizedBox(width: 8.0),
-                                        Text(
-                                            location
+                                    ],
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  Row(
+                                    children: [
+                                      Icon(Icons.crisis_alert, color: Colors.red),
+                                      SizedBox(width: 8.0),
+                                      Expanded(
+                                        child: Text(
+                                          'Disaster Type: ${data['emergency']}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.black
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 8.0),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.crisis_alert, color: Colors.red),
-                                        SizedBox(width: 8.0),
-                                        Text(
-                                            'Disaster Type: ${data['emergency']}'
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                      'lib/icons/warningIcon.png',
+                                      width: 25,
+                                      height: 25,
+                                      color: Colors.orange,
+                                      ),
+                                      SizedBox(width: 8.0),
+                                      Expanded(
+                                        child: Text(
+                                          'Criticality: ${data['detailedInformation']}',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.black
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 8.0),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.warning, color: Colors.orange),
-                                        SizedBox(width: 8.0),
-                                        Text('Criticality: ${data['detailedInformation']}'),
-                                      ],
-                                    ),
-                                    SizedBox(height: 8.0),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.access_time, color: Colors.grey),
-                                        SizedBox(width: 8.0),
-                                        Text('Time: $timestamp'),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 8.0),
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        'lib/icons/timeIcon.png',
+                                        width: 25,
+                                        height: 25,
+                                        color: Colors.lightGreen,
+                                      ),
+                                      SizedBox(width: 8.0),
+                                      Expanded(
+                                        child: Text(
+                                          'Waktu: $timestamp',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.black
+                                          ),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               );
                             },
                           ),
@@ -236,13 +275,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            child: Text(
-                              'Emergency Contact',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
+                          Text(
+                            'Kontak Darurat',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
                             ),
                           ),
                           SizedBox(height: 16.0),
@@ -297,7 +334,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             stream: FirebaseFirestore.instance
                                 .collection('emergency contact')
                                 .where('email', isEqualTo: user?.email)
-                                .limit(2)
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState == ConnectionState.waiting) {
