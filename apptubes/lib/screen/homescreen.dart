@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
         final place = placemarks.first;
         setState(() {
           _currentAddress =
-          "${place.locality}, ${place.postalCode}, ${place.country}";
+          "${place.locality}, ${place.postalCode}";
           print('Current address: $_currentAddress');
         });
       } else {
