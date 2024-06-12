@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         title: Text(
-          'Fire & Disaster',
+          'SAFE Home',
           style: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 25,
@@ -96,8 +96,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       margin: EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1), // Shadow color with some transparency
+                            blurRadius: 10.0, // Adjust blur radius for shadow softness
+                            spreadRadius: 5.0, // Adjust spread radius for shadow extent
+                            offset: Offset(-1.0, 1.0), // Offset the shadow in X and Y direction
+                          ),
+                        ],
                       ),
                       padding: EdgeInsets.all(16.0),
                       child: Column(
@@ -107,6 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             'Recent Information',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontSize: 18,
                             ),
                           ),
                           SizedBox(height: 8.0),
@@ -123,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Text(
                                     'Harusnya disini live map',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w600,
                                       fontSize: 12,
                                     ),
                                   ),
@@ -136,7 +144,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               Icon(Icons.location_on, color: Colors.blue),
                               SizedBox(width: 8.0),
-                              Text('Manacik, Karature'),
+                              Text('Manacik, Karature',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                              ),),
                             ],
                           ),
                           SizedBox(height: 8.0),
@@ -170,14 +181,21 @@ class _HomeScreenState extends State<HomeScreen> {
                       margin: EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        border: Border.all(color: Colors.grey),
                         borderRadius: BorderRadius.circular(15),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1), // Shadow color with some transparency
+                            blurRadius: 10.0, // Adjust blur radius for shadow softness
+                            spreadRadius: 5.0, // Adjust spread radius for shadow extent
+                            offset: Offset(-1.0, 1.0), // Offset the shadow in X and Y direction
+                          ),
+                        ],
                       ),
                       padding: EdgeInsets.all(16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Center(
+                          Container(
                             child: Text(
                               'Emergency Contact',
                               style: TextStyle(
@@ -187,8 +205,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           SizedBox(height: 16.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   'General',
@@ -208,27 +227,30 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
+                          ),
                           SizedBox(height: 20),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Keluarga',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                          Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'General',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              ListTile(
-                                leading: Icon(Icons.local_police),
-                                title: Text('Police Station'),
-                                trailing: Icon(Icons.call),
-                              ),
-                              ListTile(
-                                leading: Icon(Icons.local_fire_department),
-                                title: Text('Fire Station'),
-                                trailing: Icon(Icons.call),
-                              ),
-                            ],
+                                ListTile(
+                                  leading: Icon(Icons.local_police),
+                                  title: Text('Police Station'),
+                                  trailing: Icon(Icons.call),
+                                ),
+                                ListTile(
+                                  leading: Icon(Icons.local_fire_department),
+                                  title: Text('Fire Station'),
+                                  trailing: Icon(Icons.call),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

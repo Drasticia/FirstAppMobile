@@ -297,6 +297,7 @@ class _ReportScreenState extends State<ReportScreen> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         title: Text(
           'Report',

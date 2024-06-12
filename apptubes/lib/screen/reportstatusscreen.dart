@@ -16,7 +16,7 @@ class _ReporterStatusScreenState extends State<ReporterStatusScreen> {
       backgroundColor: Color.fromRGBO(255, 192, 65, 1),
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(255, 192, 65, 1),
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         title: Text(
           'My Reports',
           style: TextStyle(
