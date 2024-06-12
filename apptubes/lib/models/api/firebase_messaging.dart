@@ -14,8 +14,23 @@ class FirebaseMessagingService {
     final FCMToken = await _firebaseMessaging.getToken();
     // Print the token
     print('Token: $FCMToken');
-    await FirebaseFirestore.instance.collection('user').add({
-      'fcmToken': FCMToken.toString()
+    await FirebaseFirestore.instance.collection('fcmtoken')
+        .where('fcmToken', isEqualTo: FCMToken.toString())
+        .get()
+        .then((querySnapshot) {
+      if (querySnapshot.docs.isEmpty) {
+        FirebaseFirestore.instance.collection('fcmtoken').add({
+          'fcmToken': FCMToken.toString()
+        }).then((value) {
+          print("FCMToken Added");
+        }).catchError((error) {
+          print("Failed to add FCMToken: $error");
+        });
+      } else {
+        print("FCMToken already exists");
+      }
+    }).catchError((error) {
+      print("Failed to check FCMToken: $error");
     });
   }
 
