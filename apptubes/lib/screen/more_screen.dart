@@ -25,9 +25,8 @@ class _MoreScreenState extends State<MoreScreen> {
   }
 
   Future<void> _getUserData() async {
-    User? user = FirebaseAuth.instance.currentUser;
+    User? user = _firebaseAuth.currentUser;
     if (user != null) {
-      DocumentSnapshot userDoc = await _firestore.collection('users').doc(user.uid).get();
       setState(() {
         _userEmail = user.email;
       });
@@ -38,41 +37,23 @@ class _MoreScreenState extends State<MoreScreen> {
     }
   }
 
-  Future<void> _editEmail() async {
-    TextEditingController emailController = TextEditingController(text: _userEmail);
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Edit Email'),
-          content: TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              hintText: 'Enter your new email',
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () async {
-                User? user = _firebaseAuth.currentUser;
-                if (user != null) {
-                  await user.updateEmail(emailController.text);
-                  setState(() {
-                    _userEmail = emailController.text;
-                  });
-                  Navigator.pop(context);
-                }
-              },
-              child: Text('Save'),
-            ),
-          ],
-        );
-      },
+
+  void _signOut() async {
+    await _firebaseAuth.signOut();
+    Navigator.pop(context);
+    final snackBar = SnackBar(
+      elevation: 0,
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.transparent,
+      content: AwesomeSnackbarContent(
+        title: 'Notice',
+        message: 'Anda sudah berhasil log-out',
+        contentType: ContentType.failure,
+      ),
     );
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(snackBar);
   }
 
   @override
@@ -114,16 +95,6 @@ class _MoreScreenState extends State<MoreScreen> {
                 fontSize: 16,
               ),
             ),
-            trailing: TextButton(
-              onPressed: _editEmail,
-              child: Text(
-                'Edit',
-                style: TextStyle(
-                  color: Colors.blue,
-                  decoration: TextDecoration.underline,
-                ),
-              ),
-            ),
           ),
           Container(
             width: 1,
@@ -162,7 +133,6 @@ class _MoreScreenState extends State<MoreScreen> {
               borderRadius: BorderRadius.circular(2.5),
             ),
           ),
-          Spacer(),
           ListTile(
             leading: Icon(Icons.logout),
             title: Text('Log Out'),
@@ -171,23 +141,5 @@ class _MoreScreenState extends State<MoreScreen> {
         ],
       ),
     );
-  }
-
-  void _signOut() async {
-    await _firebaseAuth.signOut();
-    Navigator.pop(context);
-    final snackBar = SnackBar(
-      elevation: 0,
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Colors.transparent,
-      content: AwesomeSnackbarContent(
-        title: 'Notice',
-        message: 'Anda sudah berhasil log-out',
-        contentType: ContentType.failure,
-      ),
-    );
-    ScaffoldMessenger.of(context)
-      ..hideCurrentSnackBar()
-      ..showSnackBar(snackBar);
   }
 }
