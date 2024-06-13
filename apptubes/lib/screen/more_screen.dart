@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MoreScreen extends StatefulWidget {
   const MoreScreen({super.key});
@@ -15,6 +16,7 @@ class MoreScreen extends StatefulWidget {
 class _MoreScreenState extends State<MoreScreen> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  
 
   String? _userEmail;
 
@@ -124,6 +126,28 @@ class _MoreScreenState extends State<MoreScreen> {
               );
             },
           ),
+          ListTile(
+            leading: Icon(
+              Icons.volunteer_activism,
+              size: 30,
+              color: Colors.black,
+            ),
+            title: Text(
+              'Donation',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            onTap: () async {
+              const url = 'https://saweria.co/drasticia'; // Replace with your desired URL
+              if (await canLaunch(url)) {
+                await launch(url);
+              } else {
+                throw 'Could not launch $url';
+              }
+            },
+          ),
+          
           Container(
             width: 1,
             height: 1,

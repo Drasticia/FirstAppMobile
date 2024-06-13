@@ -53,6 +53,7 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.1
   firebase_in_app_messaging: ^0.7.5+7
   flutter_local_notifications: ^17.1.2
+  url_launcher: ^6.0.9
 
 
 dev_dependencies:
