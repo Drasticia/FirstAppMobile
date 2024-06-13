@@ -362,7 +362,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               fontSize: 20,
                             ),
                           ),
-                          SizedBox(height: 16.0),
+                          SizedBox(height: 10.0),
                           Container(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

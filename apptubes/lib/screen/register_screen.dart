@@ -41,11 +41,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
-    // getStatusBarHeight();
   }
-  Future<void> getStatusBarHeight() async {
-    // statusBarHeight = await MediaQuery.of(context).viewInsets.top; //height status bar nyesuain hp
-  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,81 +52,108 @@ class _RegisterScreenState extends State<RegisterScreen> {
         toolbarHeight: statusBarHeight,
         automaticallyImplyLeading: false,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 50),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('lib/icons/logo.png', height: 100), // Adjust the asset path accordingly.
-              SizedBox(height: 20),
-              Text(
-                'Daftar Sebagai\nMasyarakat',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              SizedBox(height: 20),
-              CustomTextField(
-                labelText: 'Nama',
-                hintText: 'Masukkan nama lengkap',
-                controller: _nameController,
-              ),
-              CustomTextField(
-                labelText: 'Email',
-                hintText: 'Masukkan email',
-                controller: _emailController,
-              ),
-              CustomTextField(
-                labelText: 'Password',
-                hintText: '8 Karakter dan kombinasi simbol',
-                controller: _passwordController,
-                obscureText: true,
-              ),
-              CustomDropdown(
-                hintText: 'Pilih daerah tempat kamu tinggal',
-                items: ['Jakarta', 'Bandung', 'Surabaya', 'Yogyakarta', 'Medan'],
-                value: selectedRegion,
-                onChanged: (String? origincity) {
-                  setState(() {
-                    selectedRegion = origincity;
-                  });
-                },
-              ),
-              CustomTextField(
-                labelText: 'Kode Pos',
-                hintText: 'Masukkan kode pos',
-                controller: _postalCodeController,
-                keyboardType: TextInputType.number,
-              ),
-              SizedBox(height: 20),
-              CustomButton(
-                text: 'Daftar',
-                onPressed: _signUp,
-              ),
-              SizedBox(height: 20),
-              RichText(
-                text: TextSpan(
-                  text: 'Sudah mempunyai akun? ',
-                  style: TextStyle(color: Colors.black),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 50),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextSpan(
-                      text: 'Masuk di sini',
-                      style: TextStyle(color: Theme.of(context).hintColor),
-                      recognizer: _tapRecognizer
-                        ..onTap = () {
-                          Navigator.pop(context); // Navigate back to login screen
-                        },
+                    Image.asset('lib/icons/logo.png', height: 100), // Adjust the asset path accordingly.
+                    SizedBox(height: 20),
+                    Text(
+                      'Daftar Sebagai\nMasyarakat',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w800,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    CustomTextField(
+                      labelText: 'Nama',
+                      hintText: 'Masukkan nama lengkap',
+                      controller: _nameController,
+                    ),
+                    CustomTextField(
+                      labelText: 'Email',
+                      hintText: 'Masukkan email',
+                      controller: _emailController,
+                    ),
+                    CustomTextField(
+                      labelText: 'Password',
+                      hintText: '8 Karakter dan kombinasi simbol',
+                      controller: _passwordController,
+                      obscureText: true,
+                    ),
+                    CustomDropdown(
+                      hintText: 'Pilih daerah tempat kamu tinggal',
+                      items: ['Jakarta', 'Bandung', 'Surabaya', 'Yogyakarta', 'Medan'],
+                      value: selectedRegion,
+                      onChanged: (String? origincity) {
+                        setState(() {
+                          selectedRegion = origincity;
+                        });
+                      },
+                    ),
+                    CustomTextField(
+                      labelText: 'Kode Pos',
+                      hintText: 'Masukkan kode pos',
+                      controller: _postalCodeController,
+                      keyboardType: TextInputType.number,
+                    ),
+                    SizedBox(height: 20),
+                    CustomButton(
+                      text: 'Daftar',
+                      onPressed: _signUp,
+                    ),
+                    SizedBox(height: 20),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Sudah mempunyai akun? ',
+                        style: TextStyle(color: Colors.black),
+                        children: [
+                          TextSpan(
+                            text: 'Masuk di sini',
+                            style: TextStyle(color: Theme.of(context).hintColor),
+                            recognizer: _tapRecognizer
+                              ..onTap = () {
+                                Navigator.pop(context); // Navigate back to login screen
+                              },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
+            ),
+          ),
+          Column(
+            children: [
+              Text(
+                'bLeh.co 2024',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black45,
+                  fontSize: 12,
+                ),
+              ),
+              Text(
+                'Developed With Our Heart',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
+              ),
             ],
           ),
-        ),
+          SizedBox(height: 10),
+        ],
       ),
     );
   }
@@ -185,7 +209,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ..showSnackBar(snackBar);
     }
   }
-  
+
   Future addUserDetails(String name, String email, String? origincity, String postalcode) async {
 
     await FirebaseFirestore.instance.collection('user').add({

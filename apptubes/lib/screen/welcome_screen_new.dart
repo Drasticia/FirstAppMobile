@@ -65,6 +65,31 @@ class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
               ),
             ],
           ),
+          Positioned(
+            bottom: 16,
+            left: 0,
+            right: 0,
+            child: Column(
+              children: [
+                Text(
+                  'bLeh.co 2024',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black45,
+                    fontSize: 12,
+                  ),
+                ),
+                Text(
+                  'Developed With Our Heart',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -124,7 +149,7 @@ class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
           CustomButton(
             text: 'Pemangku Kebijakan',
             onPressed: () {
-                Navigator.push(
+              Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => PolicyMakerLoginScreen()),
               );
@@ -170,6 +195,7 @@ class _WelcomeScreenNewState extends State<WelcomeScreenNew> {
           ),
         ],
       ),
+
     );
   }
 }

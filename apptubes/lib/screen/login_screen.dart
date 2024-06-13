@@ -27,8 +27,6 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   late Animation<Offset> _offsetAnimation;
   final TapGestureRecognizer _tapRecognizer = TapGestureRecognizer();
 
-
-
   @override
   void initState() {
     super.initState();
@@ -68,83 +66,109 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         toolbarHeight: statusBarHeight,
         automaticallyImplyLeading: false,
       ),
-      body: SlideTransition(
-        position: _offsetAnimation,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset('lib/icons/logo.png', height: 100), // Adjust the asset path accordingly.
-              SizedBox(height: 20),
-              Text(
-                'Masuk Sebagai\nMasyarakat',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  // fontFamily: 'SF-Pro',
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              SizedBox(height: 20),
-              CustomTextField(
-                labelText: 'Email',
-                hintText: 'Masukkan email',
-                controller: _emailController,
-              ),
-              CustomTextField(
-                labelText: 'Password',
-                hintText: 'Masukkan password',
-                controller: _passwordController,
-                obscureText: true,
-              ),
-              Align(
-                alignment: Alignment.centerRight,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
-                    );
-                  },
-                  child: Text(
-                    'Lupa password?',
-                    style: TextStyle(
-                      color: Theme.of(context).hintColor,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              CustomButton(
-                text: 'Masuk',
-                onPressed: _signIn,
-              ),
-              SizedBox(height: 20),
-              RichText(
-                text: TextSpan(
-                  text: 'Belum mempunyai akun? ',
-                  style: TextStyle(color: Colors.black),
+      body: Column(
+        children: [
+          Expanded(
+            child: SlideTransition(
+              position: _offsetAnimation,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextSpan(
-                      text: 'Daftar di sini',
-                      style: TextStyle(color: Theme.of(context).hintColor),
-                      recognizer: _tapRecognizer
-                        ..onTap = () {
+                    Image.asset('lib/icons/logo.png', height: 100), // Adjust the asset path accordingly.
+                    SizedBox(height: 20),
+                    Text(
+                      'Masuk Sebagai\nMasyarakat',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w800,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    CustomTextField(
+                      labelText: 'Email',
+                      hintText: 'Masukkan email',
+                      controller: _emailController,
+                    ),
+                    CustomTextField(
+                      labelText: 'Password',
+                      hintText: 'Masukkan password',
+                      controller: _passwordController,
+                      obscureText: true,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => RegisterScreen()),
+                            MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
                           );
                         },
+                        child: Text(
+                          'Lupa password?',
+                          style: TextStyle(
+                            color: Theme.of(context).hintColor,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    CustomButton(
+                      text: 'Masuk',
+                      onPressed: _signIn,
+                    ),
+                    SizedBox(height: 20),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Belum mempunyai akun? ',
+                        style: TextStyle(color: Colors.black),
+                        children: [
+                          TextSpan(
+                            text: 'Daftar di sini',
+                            style: TextStyle(color: Theme.of(context).hintColor),
+                            recognizer: _tapRecognizer
+                              ..onTap = () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => RegisterScreen()),
+                                );
+                              },
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
+            ),
+          ),
+          Column(
+            children: [
+              Text(
+                'bLeh.co 2024',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black45,
+                  fontSize: 12,
+                ),
+              ),
+              Text(
+                'Developed With Our Heart',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 12,
+                ),
+              ),
             ],
           ),
-        ),
+          SizedBox(height: 10),
+        ],
       ),
     );
   }
@@ -189,5 +213,4 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         ..showSnackBar(snackBar);
     }
   }
-
 }
