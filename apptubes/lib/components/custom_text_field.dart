@@ -7,6 +7,8 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType keyboardType;
   final String? Function(String?)? validator;
+  final bool showSuffixIcon;
+  final VoidCallback? onSuffixIconTap;
 
   CustomTextField({
     required this.labelText,
@@ -15,6 +17,8 @@ class CustomTextField extends StatelessWidget {
     required this.controller,
     this.keyboardType = TextInputType.text,
     this.validator,
+    this.showSuffixIcon = false,
+    this.onSuffixIconTap,
   });
 
   @override
@@ -44,6 +48,15 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
             borderSide: BorderSide(color: Theme.of(context).hintColor),
           ),
+          suffixIcon: showSuffixIcon
+              ? GestureDetector(
+            onTap: onSuffixIconTap,
+            child: Icon(
+              obscureText ? Icons.visibility : Icons.visibility_off,
+              color: Theme.of(context).hintColor,
+            ),
+          )
+              : null,
         ),
         validator: validator,
       ),

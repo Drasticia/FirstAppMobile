@@ -25,6 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _postalCodeController = TextEditingController();
   final TapGestureRecognizer _tapRecognizer = TapGestureRecognizer();
+  bool _obscurePassword = true;
 
   String? selectedRegion;
 
@@ -41,6 +42,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
+  }
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
+    });
   }
 
   @override
@@ -87,7 +94,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       labelText: 'Password',
                       hintText: '8 Karakter dan kombinasi simbol',
                       controller: _passwordController,
-                      obscureText: true,
+                      obscureText: _obscurePassword,
+                      showSuffixIcon: true,
+                      onSuffixIconTap: _togglePasswordVisibility,
                     ),
                     CustomDropdown(
                       hintText: 'Pilih daerah tempat kamu tinggal',

@@ -26,6 +26,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   final TapGestureRecognizer _tapRecognizer = TapGestureRecognizer();
+  bool _obscurePassword = true;
 
   @override
   void initState() {
@@ -55,6 +56,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     _passwordController.dispose();
     _tapRecognizer.dispose();
     super.dispose();
+  }
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
+    });
   }
 
   @override
@@ -97,7 +104,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                       labelText: 'Password',
                       hintText: 'Masukkan password',
                       controller: _passwordController,
-                      obscureText: true,
+                      obscureText: _obscurePassword,
+                      showSuffixIcon: true,
+                      onSuffixIconTap: _togglePasswordVisibility,
                     ),
                     Align(
                       alignment: Alignment.centerRight,
